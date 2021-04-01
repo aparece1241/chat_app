@@ -17,6 +17,10 @@ require('dotenv').config();
 const UserRoutes = require('./routes/UserRoutes');
 app.use('/user', UserRoutes);
 
+// Message routes
+const MessageRoutes = require('./routes/MessageRoutes');
+app.use('/message',MessageRoutes);
+
 const connection = require('./services/database');
 connection.connect();
 

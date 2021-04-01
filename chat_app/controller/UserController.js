@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const Response = require('../helpers/ResponseHandler');
 const bcrypt = require('bcrypt');
 const salt = parseInt(process.env.SALT);
 const secretKey = process.env.SECRET_KEY;
@@ -16,21 +17,15 @@ module.exports = {
 
             let user = await User.create(req.body);
             user.save();
-            if (user) {
-                response['message'] = 'Success';
-                response['data'] = user;
-                response['error'] = false;
-            } else {
-                response['message'] = 'Something wrong in saving data';
-                response['data'] = [];
-                response['error'] = true;
-                status = 200;
-            }
+            response = new Response('Success', user, false);
+            if (!user) {
+                response = new Response('Something is wrong in saving data', [], true);
+                status = 400;
+            } 
+
         } catch (error) {
             status = 400;
-            response['message'] = error.message;
-            response['data'] = [];
-            response['error'] = true;
+            response = new Response(error.message, [], true);
         }
 
         return res.status(status).json(response);
@@ -41,19 +36,13 @@ module.exports = {
         let status = 200;
         try {
             let users = await User.find({});
-            response['message'] = 'Success';
-            response['data'] = users;
-            response['error'] = false;
+            response = new Response('Success', users, false);
             if (!users) {
-                response['message'] = 'Something went wrong in update';
-                response['error'] = true;
-                response['data'] = [];
+                response = new Response('Something went wrong in retriving', [], true);
                 status = 400;
             }
         } catch (error) {
-            response['message'] = error.message;
-            response['data'] = [];
-            response['error'] = true;
+            response = new Response(error.message, [], true);
             status = 400;
         }
 
@@ -65,19 +54,13 @@ module.exports = {
         let status = 200;
         try {
             let user = await User.findById(req.params.id);
-            response['message'] = 'Success';
-            response['error'] = false;
-            response['data'] = user;
+            response = new Response('Success', user, false);
             if (!user) {
-                response['message'] = 'Something went wrong in retrieving';
-                response['error'] = true;
-                response['data'] = [];
+                response = new Response('Something went wrong in retrieving', [], true);
                 status = 400;
             }
         } catch (error) {
-            response['error'] = true;
-            response['message'] = error.message;
-            response['data'] = [];
+            response = new Response(error.message, [], true);
             status = 400;
         }
         return res.status(status).json(response);
@@ -87,26 +70,21 @@ module.exports = {
         let response = {};
         let status = 200;
         try {
-            //hash password
-            await bcrypt.hash(req.body.password, salt)
-                .then((hash) => {req.body.password = hash;})
-                .catch((err) => {throw new Error(err)});
-                
-            let user = await User.findByIdAndUpdate(req.params.id, req.body);
+            if(req.body.password) {
+                //hash password
+                await bcrypt.hash(req.body.password, salt)
+                    .then((hash) => {req.body.password = hash;})
+                    .catch((err) => {throw new Error(err)});
+            }
+            let user = await User.findByIdAndUpdate(req.params.id, req.body,{new: true});
             
-            response['message'] = 'Success';
-            response['data'] = user;
-            response['error'] = false
+            response = new Response('Success', user, false);
             if (!user) {
-                response['message'] = 'Something is wrong in updating';
-                response['data'] = [];
-                response['error'] = true;
+                response = new Response('Something went wrong in updating user', [], true);
                 status = 400;
             }
         } catch (error) {
-            response['message'] = 'Something is wrong in updating';
-            response['data'] = [];
-            response['error'] = true;
+            response = new Response(error.message, [], true);
             status = 400;
         }
 
@@ -118,20 +96,13 @@ module.exports = {
         let status = 200;
         try {
             let user = await User.findByIdAndDelete(req.params.id);
-            console.log(user);
-            response['message'] = 'Success';
-            response['data'] = user;
-            response['error'] = false;
+            response = new Response('Success', user, false);
             if (!user) {
-                response['message'] = 'Something is wrong in deleting';
-                response['data'] = [];
-                response['error'] = true;
+                response = new Response('Something went wrong in deleting', [], true);
                 status = 400;
             }
         } catch (error) {
-            response['message'] = 'Something is wrong in deleting';
-            response['data'] = [];
-            response['error'] = true;
+            response = new Response(error.message, [], true);
             status = 400;
         }
 
