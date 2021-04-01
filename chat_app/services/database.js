@@ -7,14 +7,15 @@ module.exports = {
             mongoose.connect(connection_string, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
-                useFindAndModify: false
+                useFindAndModify: false,
+                useCreateIndex: true
             });
             message = 'Connected to mongodb!';
         } catch (error) {
             message = 'Error: ' + error.message;
         }
 
-    return message;
+    console.log(message);
 }
 
 }
