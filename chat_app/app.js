@@ -10,6 +10,9 @@ const PORT = 4000;
 const server = http.createServer(app);
 const io = require('socket.io')(server);
 
+// Use env file
+require('dotenv').config();
+
 // User routes
 const UserRoutes = require('./routes/UserRoutes');
 app.use('/user', UserRoutes);
