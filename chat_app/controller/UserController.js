@@ -104,7 +104,7 @@ module.exports = {
         let response = {};
         let status = 200;
         try {
-            let user = User.findByIdAndDelete(req.params.id);
+            let user = await User.findByIdAndDelete(req.params.id);
             if (!user) {
                 response['message'] = 'Something is wrong in deleting';
                 response['data'] = [];
