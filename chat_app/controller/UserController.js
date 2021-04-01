@@ -1,5 +1,5 @@
 const User = require('../model/User');
-const jwt = require('jsonwebtoken');
+const Response = require('../helpers/ResponseHandler');
 
 module.exports = {
     async addUser(req, res) {
@@ -9,20 +9,15 @@ module.exports = {
             let user = await User.create(req.body);
             user.save();
             if (user) {
-                response['message'] = 'Success';
-                response['data'] = user;
-                response['error'] = false;
+                response = Response('Success', user, false);
+                status = 200
             } else {
-                response['message'] = 'Something wrong in saving data';
-                response['data'] = [];
-                response['error'] = true;
-                status = 200;
+                response = Response('Something is wrong in saving data', [], true);
+                status = 400;
             }
         } catch (error) {
             status = 400;
-            response['message'] = error.message;
-            response['data'] = [];
-            response['error'] = true;
+            response = Response(error.message, [], true);
         }
 
         return res.status(status).json(response);
