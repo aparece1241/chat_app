@@ -1,5 +1,5 @@
 class ResponseHandler {
-    constructor(message, data, error) {
+    constructor(message, data = [], error = true) {
         return {
             'message': message,
             'data': data,
