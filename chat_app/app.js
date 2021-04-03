@@ -13,6 +13,9 @@ const io = require('socket.io')(server);
 // Use env file
 require('dotenv').config();
 
+const connection = require('./services/database');
+connection.connect();
+
 // User routes
 const UserRoutes = require('./routes/UserRoutes');
 app.use('/user', UserRoutes);
@@ -21,7 +24,8 @@ app.use('/user', UserRoutes);
 const MessageRoutes = require('./routes/MessageRoutes');
 app.use('/message',MessageRoutes);
 
-const connection = require('./services/database');
-connection.connect();
+// Conversation routes
+const ConversationRoutes = require('./routes/ConversationRoutes');
+app.use('/conversation', ConversationRoutes);
 
 server.listen(PORT, ()=> console.log(`Listening in port ${PORT}!`));
