@@ -24,7 +24,7 @@ module.exports = {
         let response = {};
         let status = 200;
         try {
-            let convesations = await Conversation.find({'deleted_at': null});
+            let conversations = await Conversation.find({'deleted_at': null});
             response = new Response('Success', conversations, false);
             if(!conversations) {
                 response = new Response('Something went wrong!');
