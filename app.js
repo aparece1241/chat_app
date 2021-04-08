@@ -5,7 +5,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 const server = http.createServer(app);
 const io = require('socket.io')(server);
