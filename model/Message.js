@@ -5,7 +5,6 @@ const MessageSchema = new Schema({
     message: {type: String, required: true},
     created_at: {type: Date, default: new Date()},
     author: {type: Schema.Types.ObjectId, ref: 'user', required: true},
-    conversation: {type: Schema.Types.ObjectId, ref: 'conversation'},
     deleted_at: {type: Date, default: null}
 });
 
