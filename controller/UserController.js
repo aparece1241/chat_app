@@ -13,7 +13,7 @@ module.exports = {
             //hash password
             await bcrypt.hash(req.body.password, salt)
                 .then((hash) => {req.body.password = hash;})
-                .catch((err) => {throw new Error(err)});
+                .catch((err) => {console.log(err); throw new Error(err)});
 
             let user = await User.create(req.body);
             user.save();
