@@ -11,9 +11,11 @@ module.exports = {
         let status = 200;
         try {
             //hash password
-            await bcrypt.hash(req.body.password, salt)
-                .then((hash) => {req.body.password = hash;})
-                .catch((err) => {throw new Error(err)});
+            if(req.body.password) {
+                await bcrypt.hash(req.body.password, salt)
+                    .then((hash) => {req.body.password = hash;})
+                    .catch((err) => {throw new Error(err)});
+            }
 
             let user = await User.create(req.body);
             user.save();
