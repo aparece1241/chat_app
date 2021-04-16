@@ -1,0 +1,30 @@
+{
+  "name": "chat_app",
+  "version": "1.0.0",
+  "description": "Chat app for my friends use",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aparece1241/chat_app.git"
+  },
+  "author": "aparece1241",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aparece1241/chat_app/issues"
+  },
+  "homepage": "https://github.com/aparece1241/chat_app#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.2",
+    "nodemon": "^2.0.7",
+    "socket.io": "^4.0.0"
+  }
+}

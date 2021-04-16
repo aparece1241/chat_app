@@ -1,0 +1,3 @@
+{
+    "CONNECTION_STRING": "mongodb+srv://admin:admin@chatappcluster.qrqp3.mongodb.net/chat-app?retryWrites=true&w=majority"
+}
