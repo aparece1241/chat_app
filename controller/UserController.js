@@ -3,7 +3,7 @@ const Response = require('../helpers/ResponseHandler');
 const bcrypt = require('bcrypt');
 const salt = parseInt(process.env.SALT);
 const secretKey = process.env.SECRET_KEY;
-
+const formatErrorMsg = require('../helpers/FormatErrorMsg');
 
 module.exports = {
     async addUser(req, res) {
@@ -24,9 +24,10 @@ module.exports = {
                 response = new Response('Something is wrong in saving data', [], true);
                 status = 400;
             } 
-
+            
         } catch (error) {
             status = 400;
+            formatErrorMsg(error.message);
             response = new Response(error.message, [], true);
         }
 
