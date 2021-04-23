@@ -13,7 +13,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
@@ -31,7 +32,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
         return res.status(status).json(response);
@@ -48,7 +50,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
@@ -66,7 +69,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
         return res.status(status).json(response);
@@ -83,7 +87,8 @@ module.exports = {
                 status = 400
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
