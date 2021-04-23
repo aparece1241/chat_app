@@ -10,7 +10,12 @@ app.use(cors());
 const PORT = process.env.PORT || 4000;
 
 const server = http.createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server,{
+    cors: {
+        origin: 'http://localhost:8080',
+        methods: ['GET',['POST']]
+    }
+});
 
 // Use env file
 require('dotenv').config();
@@ -29,5 +34,9 @@ app.use('/message',MessageRoutes);
 // Conversation routes
 const ConversationRoutes = require('./routes/ConversationRoutes');
 app.use('/conversation', ConversationRoutes);
+
+
+// Set-up socket io connection
+
 
 server.listen(PORT, ()=> console.log(`Listening in port ${PORT}!`));

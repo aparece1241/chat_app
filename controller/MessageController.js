@@ -1,5 +1,6 @@
 const Message = require('../model/Message');
 const Response = require('../helpers/ResponseHandler');
+const formatErrorMsg = require('../helpers/FormatErrorMsg');
 
 module.exports = {
     async createMessage(req, res) {
@@ -14,7 +15,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message, [], false);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
@@ -32,7 +34,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
@@ -50,7 +53,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
@@ -68,7 +72,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
@@ -86,7 +91,8 @@ module.exports = {
                 status = 400;
             }
         } catch (error) {
-            response = new Response(error.message);
+            let errorMsg = formatErrorMsg(error.message);
+            response = new Response(errorMsg, [], true);
             status = 400;
         }
 
