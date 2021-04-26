@@ -13,7 +13,7 @@ const server = http.createServer(app);
 const io = require('socket.io')(server,{
     cors: {
         origin: 'http://localhost:8080',
-        methods: ['GET',['POST']]
+        methods: ['GET', 'POST']
     }
 });
 
@@ -37,6 +37,10 @@ app.use('/conversation', ConversationRoutes);
 
 
 // Set-up socket io connection
+io.on('connection', socket => {
+    console.log('a user is connected!');
+    console.log(socket);
+});
 
 
 server.listen(PORT, ()=> console.log(`Listening in port ${PORT}!`));
