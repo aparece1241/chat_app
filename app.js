@@ -30,4 +30,6 @@ app.use('/message',MessageRoutes);
 const ConversationRoutes = require('./routes/ConversationRoutes');
 app.use('/conversation', ConversationRoutes);
 
+console.log(process.env.NODE_ENV);
+
 server.listen(PORT, ()=> console.log(`Listening in port ${PORT}!`));
