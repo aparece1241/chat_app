@@ -14,7 +14,6 @@ const originRoute = (process.env.NODE_ENV !== 'production')?'http://localhost:80
 
 const io = require('socket.io')(server,{
     cors: {
-        origin: originRoute,
         methods: ['GET', 'POST']
     }
 });
