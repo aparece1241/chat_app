@@ -10,7 +10,7 @@ app.use(cors());
 const PORT = process.env.PORT || 4000;
 
 const server = http.createServer(app);
-const originRoute = (process.env.NODE_ENV !== 'production')?'http://localhost:8080': 'https://mstalk.netlify.app/';
+const originRoute = (process.env.NODE_ENV !== 'production')?'http://localhost:8080': 'https://mstalk.netlify.app/home';
 
 const io = require('socket.io')(server,{
     cors: {
