@@ -10,9 +10,11 @@ app.use(cors());
 const PORT = process.env.PORT || 4000;
 
 const server = http.createServer(app);
+const originRoute = (process.env.NODE_ENV !== 'production')?'http://localhost:8080': 'https://mstalk.herokuapp.com';
+
 const io = require('socket.io')(server,{
     cors: {
-        origin: 'http://localhost:8080',
+        origin: originRoute,
         methods: ['GET', 'POST']
     }
 });
@@ -37,9 +39,17 @@ app.use('/conversation', ConversationRoutes);
 
 
 // Set-up socket io connection
-io.on('connection', socket => {
-    console.log('a user is connected!');
-    console.log(socket);
+io.on('connection', socket => { console.log('a user is connected!'); 
+    socket.on('disconnection', (event) => {
+        console.log(event);
+        console.log('a user disconnected!');
+    });
+
+    socket.on('message', data => {
+       console.log(data);
+       io.emit('message', data);
+    });
+
 });
 
 
