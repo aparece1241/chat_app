@@ -1,4 +1,5 @@
 const Message = require('../model/Message');
+const Conversation = require('../model/Conversation');
 const Response = require('../helpers/ResponseHandler');
 const formatErrorMsg = require('../helpers/FormatErrorMsg');
 

@@ -1,5 +1,6 @@
 const Conversation = require('../model/Conversation');
 const Response = require('../helpers/ResponseHandler');
+const formatErrorMsg = require('../helpers/FormatErrorMsg');
 
 module.exports = {
     async createConversation(req, res) {
@@ -43,7 +44,7 @@ module.exports = {
         let response = {};
         let status = 200;
         try {
-            let conversation = await Conversation.findByIdAndUpdate(req.params.id, req.body, {new: true});
+            let conversation = await Conversation.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate('messages');
             response = new Response('Success', conversation, false); 
             if(!conversation) {
                 response = new Response('Something wenr wrong!');
