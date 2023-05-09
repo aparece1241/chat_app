@@ -44,7 +44,7 @@ module.exports = {
         let response = {};
         let status = 200;
         try {
-            let conversation = await Conversation.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate('messages');
+            let conversation = await Conversation.findByIdAndUpdate(req.params.id, req.body, {new: true});
             response = new Response('Success', conversation, false); 
             if(!conversation) {
                 response = new Response('Something wenr wrong!');

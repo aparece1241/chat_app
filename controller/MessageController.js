@@ -8,7 +8,9 @@ module.exports = {
         let response = {};
         let status = 200;
         try {
-            let msg = await Message.create(req.body);
+            let data = req.body;
+            data['created_at'] = new Date();
+            let msg = await Message.create(data);
             msg.save();
             response = new Response('Success', msg, false);
             if(!msg) {

@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const Conversation = require('../model/Conversation');
 const Response = require('../helpers/ResponseHandler');
 const bcrypt = require('bcrypt');
 const salt = parseInt(process.env.SALT);
@@ -58,6 +59,9 @@ module.exports = {
         let status = 200;
         try {
             let user = await User.findById(req.params.id);
+            let conversations = await Conversation.find({'members': {$in: [user._id]}}).populate('members').populate('messages');
+            user['conversations'] = conversations;
+
             response = new Response('Success', user, false);
             if (!user) {
                 response = new Response('Something went wrong in retrieving', [], true);

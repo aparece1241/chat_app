@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     "deleted_at": {type: Date, default: null},
     "messages": [{type: Schema.Types.ObjectId, ref: 'message'}],
     "conversations": [{type: Schema.Types.ObjectId, ref: 'conversation'}],
+    "socket_id": {type: String, default: null},
 });
 
 const User = mongoose.model('user', UserSchema);
