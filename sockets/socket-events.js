@@ -8,17 +8,15 @@ module.exports = {
             // middlewares
             middleware.socketMiddleware(io);
 
+            // when user connect update all users list in all pages
+            
             // update user
             const user = socket.handshake.auth.user;
             let updatedUser = await User.findByIdAndUpdate(user._id, {socket_id: socket.id}, {new: true});
             console.log(`User ${updatedUser.socket_id} socket id is updated!`);
-
-            const users = [];
-            for (let [id , socket] of io.of('/').sockets) {
-                users.push({userId: id, user: "test"});
-            }
-            // return all active users
-            socket.broadcast.emit('active-users', users);
+            
+            io.emit('a-user-connect');
+            console.log('a user is connected!');
 
             socket.on('disconnection', (event) => {
                 console.log('a user disconnected!');
@@ -29,6 +27,10 @@ module.exports = {
                 console.log(data);
             });
 
+            socket.on('notification', data => {
+                io.to(data).emit('notification', user);
+                console.log(`notification: ${data}  user: ${user.username}`);
+            });
         });
     }
 }
