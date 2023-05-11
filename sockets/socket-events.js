@@ -8,13 +8,15 @@ module.exports = {
             // middlewares
             middleware.socketMiddleware(io);
 
-            // when user connect update all users list in all pages
-            
             // update user
             const user = socket.handshake.auth.user;
-            let updatedUser = await User.findByIdAndUpdate(user._id, {socket_id: socket.id}, {new: true});
-            console.log(`User ${updatedUser.socket_id} socket id is updated!`);
+            if (Object.keys(user).length) {
+                let updatedUser = await User.findByIdAndUpdate(user._id, {socket_id: socket.id}, {new: true});
+                console.log(updatedUser, user);
+                console.log(`User ${updatedUser.socket_id} socket id is updated!`);
+            }
             
+            // when user connect update all users list in all pages
             io.emit('a-user-connect');
             console.log('a user is connected!');
 
