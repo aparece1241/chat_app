@@ -7,6 +7,7 @@ const ConversationSchema = new Schema({
     conversation_name: {type: String, required: true},
     created_at: {type: Date, default: new Date()},
     messages: [{type: Schema.Types.ObjectId, ref: 'message'}],
+    updated_at: {type: Date, default: new Date()},
     deleted_at: {type: Date, default: null},
     is_accepted_both: {type: Boolean, default: false},
 });

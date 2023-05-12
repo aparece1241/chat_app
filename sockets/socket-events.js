@@ -12,7 +12,6 @@ module.exports = {
             const user = socket.handshake.auth.user;
             if (Object.keys(user).length) {
                 let updatedUser = await User.findByIdAndUpdate(user._id, {socket_id: socket.id}, {new: true});
-                console.log(updatedUser, user);
                 console.log(`User ${updatedUser.socket_id} socket id is updated!`);
             }
             
