@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
-// const connection_string = require('../config.json').CONNECTION_STRING;
-const connection_string = process.env.CONNECTION_STRING;
 module.exports = {
-    connect() {
+    connect(CONNECTION_STRING) {
         let message;
         try {
-            mongoose.connect(connection_string, {
+            mongoose.connect(CONNECTION_STRING, {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useFindAndModify: false,
-                useCreateIndex: true
+                useCreateIndex: true,
+                connectTimeoutMS: 30000,
             });
             message = 'Connected to mongodb!';
         } catch (error) {

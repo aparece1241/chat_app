@@ -18,11 +18,16 @@ const io = require('socket.io')(server,{
     }
 });
 
+
 // Use env file
 require('dotenv').config();
 
 const connection = require('./services/database');
-connection.connect();
+let connection_string = process.env.CONNECTION_STRING;
+if (app.get('env') != 'development') {
+    connection_string = process.env.PROD_CONNECTION_STRING;
+}
+connection.connect(connection_string);
 
 // User routes
 const UserRoutes = require('./routes/UserRoutes');
