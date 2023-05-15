@@ -27,6 +27,7 @@ let connection_string = process.env.CONNECTION_STRING;
 if (app.get('env') != 'development') {
     connection_string = process.env.PROD_CONNECTION_STRING;
 }
+console.log(connection_string);
 connection.connect(connection_string);
 
 // User routes
