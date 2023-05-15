@@ -9,7 +9,9 @@ const UserSchema = new Schema({
     "profile_img": {type: String, default: 'default.png'},
     "created_at": {type: Date, default: new Date()},
     "deleted_at": {type: Date, default: null},
-    "messages": [{type: Schema.Types.ObjectId, ref: 'message'}]
+    "messages": [{type: Schema.Types.ObjectId, ref: 'message'}],
+    "conversations": [{type: Schema.Types.ObjectId, ref: 'conversation'}],
+    "socket_id": {type: String, default: null},
 });
 
 const User = mongoose.model('user', UserSchema);

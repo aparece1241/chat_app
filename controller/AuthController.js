@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
+const Conversation = require('../model/Conversation');
 const bcrypt = require('bcrypt');
 const privateKey = process.env.PRIVATE_KEY;
 
@@ -15,8 +16,12 @@ module.exports = {
         let username = req.body.username;
         let password = req.body.password;
 
-        let user = await User.findOne({'username':username});
-
+        let user = await User.findOne({'username': username})
+        let conversations = await Conversation.find({members:{$in:[user._id]}})
+                            .populate("members");
+                            
+        user['conversations'] = conversations;
+        
         if(user) {
             let match = await bcrypt.compare(password, user.password);
             if(match) {

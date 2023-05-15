@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const connection_string = require('../config.json').CONNECTION_STRING;
+// const connection_string = require('../config.json').CONNECTION_STRING;
+const connection_string = process.env.CONNECTION_STRING;
 module.exports = {
     connect() {
         let message;

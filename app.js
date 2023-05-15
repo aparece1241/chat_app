@@ -36,20 +36,8 @@ app.use('/message',MessageRoutes);
 const ConversationRoutes = require('./routes/ConversationRoutes');
 app.use('/conversation', ConversationRoutes);
 
-
 // Set-up socket io connection
-io.on('connection', socket => { console.log('a user is connected!'); 
-    socket.on('disconnection', (event) => {
-        console.log(event);
-        console.log('a user disconnected!');
-    });
-
-    socket.on('message', data => {
-       console.log(data);
-       io.emit('message', data);
-    });
-
-});
-
+const socketEvents = require('./sockets/socket-events');
+socketEvents.setupSocket(io);
 
 server.listen(PORT, ()=> console.log(`Listening in port ${PORT}!`));
